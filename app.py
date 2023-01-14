@@ -1,10 +1,29 @@
-from flask import Flask,render_template, request, Response,abort,url_for, redirect, flash
-import requests, datetime
+from flask import Flask,render_template, request, Response,abort,url_for, redirect, flash,g
+import requests, datetime ,sqlite3
 app = Flask(__name__)
+ 
 
+def connect_db():
+    connection = sqlite3.connect('./database.db') 
+    return connection
 
-@app.route("/home", methods=('GET', 'POST'))
-def home():
+def get_db():
+    if not hasattr(g,'sqlite3'):
+        g.sqlite3_db = connect_db()
+    return g.sqlite3_db
+
+@app.teardown_appcontext
+def close_db(error):
+    if hasattr(g , 'sqlite_db'):
+        g.sqlite3_db.close()
+ 
+
+@app.route("/", methods=('GET', 'POST'))
+def home():  
+    db = get_db()
+    cursor = db.cursor()
+    data = cursor.execute('SELECT * FROM results').fetchall()
+    print(data)
     if request.method == 'POST': 
         city = request.form["city"]
          
@@ -41,7 +60,7 @@ def get_weather_info(name_city):
     except:
         pass
      
-
+ 
 
 if __name__ =="__main__":
 	app.run() 
