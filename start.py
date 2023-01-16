@@ -4,7 +4,7 @@ from flask import (
 )  
 import requests, datetime ,sqlite3
 
-bp = Blueprint('home', __name__, url_prefix='/')
+bp = Blueprint('start', __name__)
 
 def connect_db():
     connection = sqlite3.connect('./database.db') 
@@ -17,7 +17,7 @@ def get_db():
 
  
 @bp.route('/home',methods = ('GET','POST'))
-def home():   
+def main_home():   
     db = get_db()
     # cursor = db.cursor()
     # data = cursor.execute('SELECT * FROM results').fetchall()
@@ -40,7 +40,9 @@ def home():
                     "vis" : round(ress["visibility"]/10000,2),
                     "date" : datetime.datetime.now().strftime("%c") 
                 } 
-                return render_template('index.html',**obj)   
+                session['obj'] = obj
+                return redirect(url_for('start.city_info',city_name = ress["name"] ))
+                #return render_template('index.html',**obj)   
         return render_template("home.html", error= 1)
     return render_template("home.html", error= 0)
 
@@ -52,3 +54,7 @@ def get_weather_info(name_city):
         return requests.get(api_url).json() 
     except:
         pass  
+
+@bp.route('/home/<city_name>',methods = ('GET','POST'))
+def city_info(city_name):
+    return render_template('index.html',**session['obj'])  
