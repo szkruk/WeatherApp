@@ -17,17 +17,15 @@ def get_db():
 
  
 @bp.route('/home',methods = ('GET','POST'))
-def home():  
+def home():   
     db = get_db()
-    cursor = db.cursor()
-    data = cursor.execute('SELECT * FROM results').fetchall()
-    print(data)
+    # cursor = db.cursor()
+    # data = cursor.execute('SELECT * FROM results').fetchall()
+    # print(data)
     if request.method == 'POST': 
         print(request.form)
         city = request.form["city"]
-         
-        obj = {}
-        print(type(obj))
+        obj = {} 
         if city:
             ress = get_weather_info(city) 
             if ress['cod']==200 :
@@ -40,15 +38,11 @@ def home():
                     "wind" : ress["wind"]["speed"],
                     "main_weather" : ress["weather"][0]["main"] ,
                     "vis" : round(ress["visibility"]/10000,2),
-                    "date" : datetime.datetime.now().strftime("%c"),
-                    "error" : 0
+                    "date" : datetime.datetime.now().strftime("%c") 
                 } 
-            else:
-                obj["error"]=1
-        else:
-            obj["error"] = 1 
-        return render_template('index.html',**obj) 
-    return render_template("home.html")
+                return render_template('index.html',**obj)   
+        return render_template("home.html", error= 1)
+    return render_template("home.html", error= 0)
 
  
 def get_weather_info(name_city):

@@ -4,39 +4,47 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=\, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Weather App</title>
     <link
       href="{{url_for('static',filename='css/dist/output.css')}}"
       rel="stylesheet"
     />
   </head>
   <body>
-    <div class="min-h-screen flex items-center justify-center">
+    <div class="min-h-screen flex flex-col items-center justify-center">
       <div
-        class="flex flex-col bg-white rounded-2xl w-full max-w-lg h-72 items-center justify-center py-2"
+        class="flex flex-col bg-white rounded-2xl w-full max-w-lg h-72 items-center justify-center py-2 border-2"
       >
         <h2 class="font-medium text-2xl">Weather Dashboard in Flask</h2>
         <form class="w-5/6 mt-2" id="weatherForm" method="post">
           <label class="block">
-            <span
-              class="block text-center text-sm text-2xl font-medium text-slate-700"
+            <span class="block text-center text-2xl font-medium text-slate-700"
               >City</span
             >
             <input
               type="text"
               name="city"
-              class="mt-2 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md shadow-sm text-center text-xl"
+              class="mt-2 block w-full px-3 py-2 bg-white border-slate-300 rounded-md shadow-sm text-center text-xl border-2"
             />
           </label>
           <button
             type="submit"
             name="sumbit_button"
-            class="mt-5 block w-28 mx-auto py-2 bg-lightviolet border border-slate-300 rounded-md text-sm shadow-sm hover:bg-white"
+            class="mt-5 block w-28 mx-auto py-2 bg-lightviolet border-2 border-slate-300 rounded-md text-sm shadow-sm hover:bg-white"
           >
             Sumbit
           </button>
         </form>
       </div>
+      {% if error==1 %}
+      <div
+        class="flex flex-col bg-lightpink rounded-2xl w-1/4 h-32 items-center justify-center py-2 mt-6 border-2"
+      >
+        <h1>There is no city like this.</h1>
+        <h1>Try again!</h1>
+      </div>
+
+      {% else %} {% endif %}
     </div>
   </body>
 </html>
