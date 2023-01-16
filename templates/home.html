@@ -13,9 +13,9 @@
   <body>
     <div class="min-h-screen flex items-center justify-center">
       <div
-        class="flex flex-col bg-white rounded w-full max-w-xs items-center py-2"
+        class="flex flex-col bg-white rounded-2xl w-full max-w-lg h-72 items-center justify-center py-2"
       >
-        <h2 class="text-xl">Weather Dashboard in Flask</h2>
+        <h2 class="font-medium text-2xl">Weather Dashboard in Flask</h2>
         <form class="w-5/6 mt-2" id="weatherForm" method="post">
           <label class="block">
             <span
@@ -25,14 +25,13 @@
             <input
               type="text"
               name="city"
-              value="{{request.form['city']}}"
               class="mt-2 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md shadow-sm text-center text-xl"
             />
           </label>
           <button
             type="submit"
             name="sumbit_button"
-            class="my-2 block w-28 mx-auto py-2 bg-lightviolet border border-slate-300 rounded-md text-sm shadow-sm hover:bg-white"
+            class="mt-5 block w-28 mx-auto py-2 bg-lightviolet border border-slate-300 rounded-md text-sm shadow-sm hover:bg-white"
           >
             Sumbit
           </button>
