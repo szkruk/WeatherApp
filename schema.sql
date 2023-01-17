@@ -1,0 +1,8 @@
+ CREATE TABLE IF NOT EXISTS results (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  city TEXT NOT NULL,
+  temperature REAL NOT NULL,
+  date TEXT NOT NULL
+);
+
+ 

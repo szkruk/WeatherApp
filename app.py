@@ -11,7 +11,7 @@ app.config.from_mapping(
         DATABASE=os.path.join(app.instance_path, 'database'),
     )
 
-app.register_blueprint(start.bp) 
+app.register_blueprint(start.bp)  
  
 @app.teardown_appcontext
 def close_db(error):

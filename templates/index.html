@@ -11,7 +11,7 @@
     />
   </head>
   <body>
-    <div class="min-h-screen flex items-center justify-center">
+    <div class="min-h-screen flex flex-col items-center justify-center">
       <div
         class="flex flex-col bg-white rounded p-4 w-full h-96 max-w-md border"
       >
@@ -71,6 +71,31 @@
             <div class="text-lg text-gray-500">{{vis}} km</div>
           </div>
         </div>
+      </div>
+      <div
+        class="flex flex-col bg-white text-center rounded p-4 w-full h-auto max-w-md border mt-3"
+      >
+        <p class="text-lg font-medium mb-2">Last five searches</p>
+        <table
+          class="table-auto border text-base rounded-xl border-slate-900 rounded-full"
+        >
+          <thead>
+            <tr>
+              <th class="border border-slate-900">City</th>
+              <th class="border border-slate-900">Temperature</th>
+              <th class="border border-slate-900">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for el in data %}
+            <tr>
+              <td class="border border-slate-900">{{el[1]}}</td>
+              <td class="border border-slate-900">{{el[2]}}°C</td>
+              <td class="border border-slate-900">{{el[3]}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
     </div>
   </body>

@@ -18,10 +18,7 @@ def get_db():
  
 @bp.route('/home',methods = ('GET','POST'))
 def main_home():   
-    db = get_db()
-    # cursor = db.cursor()
-    # data = cursor.execute('SELECT * FROM results').fetchall()
-    # print(data)
+     
     if request.method == 'POST': 
         print(request.form)
         city = request.form["city"]
@@ -41,8 +38,7 @@ def main_home():
                     "date" : datetime.datetime.now().strftime("%c") 
                 } 
                 session['obj'] = obj
-                return redirect(url_for('start.city_info',city_name = ress["name"] ))
-                #return render_template('index.html',**obj)   
+                return redirect(url_for('start.city_info',city_name = ress["name"] )) 
         return render_template("home.html", error= 1)
     return render_template("home.html", error= 0)
 
@@ -57,4 +53,12 @@ def get_weather_info(name_city):
 
 @bp.route('/home/<city_name>',methods = ('GET','POST'))
 def city_info(city_name):
-    return render_template('index.html',**session['obj'])  
+    db = get_db()
+    cursor = db.cursor()
+    with open('schema.sql') as fp:
+        cursor.executescript(fp.read())
+    cursor.execute("INSERT INTO results (city,temperature,date) VALUES (?,?,?)",(city_name,session["obj"]["temp"],session["obj"]["date"]))
+    db.commit()
+    data = cursor.execute('SELECT * FROM results ORDER BY id DESC limit 5').fetchall()  
+    print(data)
+    return render_template('index.html',data = data, **session['obj'] )  
