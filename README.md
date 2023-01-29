@@ -2,11 +2,6 @@
 
 A web-based weather application that allows you to input the name of your city and retrieve information such as temperature.
  
-## Technologies Used
-- Flask
-- Tailwind
-- SQLite
-
 ## Prerequisites
 - Python 3.x
 - Flask
