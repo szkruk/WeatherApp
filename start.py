@@ -44,7 +44,7 @@ def main_home():
 
  
 def get_weather_info(name_city):
-    url_key = "a317ee35a2765c697275078137a6b7fc" 
+    url_key = "----------" #Generate your url_key on https://api.openweathermap.org
     api_url = "https://api.openweathermap.org/data/2.5/weather?q="+name_city+"&appid="+url_key
     try:
         return requests.get(api_url).json() 
